@@ -1,0 +1,16 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Negated boolean expression is always true\\.$#"
+			count: 1
+			path: inc/utils.php
+
+		-
+			message: "#^Parameter \\#2 \\$replace of function str_replace expects array\\|string, int\\<1, max\\> given\\.$#"
+			count: 2
+			path: inc/utils.php
+
+		-
+			message: "#^Parameter \\#2 \\$replace of function str_replace expects array\\|string, int\\<min, 0\\>\\|int\\<2, max\\> given\\.$#"
+			count: 1
+			path: inc/utils.php

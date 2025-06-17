@@ -1,0 +1,14 @@
+/*
+Theme Name: stackblog
+Theme URI: http://example.com
+Author: ging-dev
+Author URI: https://github.com/ging-dev
+Description: A blank theme for WordPress.
+Version: 1.0
+License: MIT
+License URI: https://opensource.org/license/mit
+*/
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme) prefix(tw);
+@import "@stackoverflow/stacks/dist/css/stacks.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);

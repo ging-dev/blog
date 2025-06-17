@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "devsense.phptools-vscode",
+        "bradlc.vscode-tailwindcss",
+        "christian-kohler.path-intellisense",
+        "ecmel.vscode-html-css"
+    ]
+}

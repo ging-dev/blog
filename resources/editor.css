@@ -1,0 +1,23 @@
+@import "@stackoverflow/stacks/dist/css/stacks.css";
+@import "@stackoverflow/stacks-editor/dist/styles.css";
+
+* {
+    all: revert;
+}
+
+#editor-container {
+    margin-top: 37px;
+}
+
+.js-editor {
+    box-sizing: border-box;
+}
+
+.s-textarea {
+    border: none;
+}
+
+.s-textarea:focus-within {
+    box-shadow: none;
+    outline: none !important;
+}
