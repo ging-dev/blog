@@ -10,7 +10,7 @@ export default defineConfig({
         tailwindcss(),
         laravel({
             input: ['resources/app.ts', 'resources/editor.ts', 'style.css'],
-            refresh: ['**.php', 'templates/**.twig'],
+            refresh: ['**.php'],
             hotFile: resolve(__dirname, 'hot'),
             publicDirectory: './',
         }),

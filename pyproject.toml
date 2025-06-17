@@ -1,4 +1,0 @@
-[tool.djlint]
-profile="nunjucks"
-extension="html.twig"
-ignore="T002,T003,H005,H016,H020,H021,H030,H031"
