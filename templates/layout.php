@@ -4,13 +4,15 @@ use League\Plates\Template\Template;
 assert( $this instanceof Template );
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo get_bloginfo( 'charset' ); ?>">
+<html <?php language_attributes(); ?>>
 
 <head>
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<?php wp_head(); ?>
 </head>
 
-<body class="<?php body_class(); ?>">
+<body <?php body_class(); ?>>
 	<header class="s-topbar ps-sticky tw:top-0">
 		<div class="s-topbar--container">
 			<a href="#" class="s-topbar--menu-btn" aria-controls="popover-example" aria-expanded="false"
@@ -20,8 +22,8 @@ assert( $this instanceof Template );
 				<div class="s-popover--arrow"></div>
 				<div class="s-popover--content">haha</div>
 			</div>
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="s-topbar--logo"><i
-					class="fa-brands fa-linux svg-icon fa-2x"></i>
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="s-topbar--logo">
+				<i class="fa-brands fa-linux svg-icon fa-2x"></i>
 				<?php echo get_bloginfo( 'name' ); ?></a>
 			<div class="s-topbar--container wmx50">
 				<form id="search" class="s-topbar--searchbar" autocomplete="off" role="search"
