@@ -8,14 +8,11 @@
 add_action(
 	'admin_enqueue_scripts',
 	function ( $hook_suffix ): void {
-		if ( 'post.php' !== $hook_suffix
-			&& 'post-new.php' !== $hook_suffix
-		) {
+		if ( ! in_array( $hook_suffix, array( 'post.php', 'post-new.php' ) ) ) {
 			return;
 		}
 
-		$vite = new Vite();
-		$vite->inject( 'resources/editor.ts' );
+		vite_enqueue( array( 'resources/editor.ts' ) );
 	},
 );
 

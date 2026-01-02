@@ -25,6 +25,7 @@ class Vite {
 	/** @var Manifest */
 	private array $manifest = array();
 
+
 	public function __construct( string $build_dir = 'build' ) {
 		$this->is_running_hot = file_exists( $hot = get_template_directory() . '/hot' );
 
@@ -45,15 +46,13 @@ class Vite {
 		);
 	}
 
-	public function inject( string $entry ): void {
+	public function enqueue( string $entry ): void {
 		$this->resolve( $entry );
 	}
 
-	private function resolve( string $entry, bool $throw = true ): string {
-		$entry = ltrim( $entry, '/' );
-
+	private function resolve( string $entry, bool $is_css = false ): string {
 		/** @var ManifestChunk */
-		$chunk = ( $this->is_running_hot || ! $throw ) ? array(
+		$chunk = ( $this->is_running_hot || $is_css ) ? array(
 			'file'    => $entry,
 			'isEntry' => true,
 		) : $this->manifest[ $entry ] ?? throw new RuntimeException(
@@ -61,7 +60,7 @@ class Vite {
 		);
 
 		foreach ( $chunk['css'] ?? array() as $css ) {
-			$this->resolve( $css, false );
+			$this->resolve( $css, true );
 		}
 
 		$deps = array();

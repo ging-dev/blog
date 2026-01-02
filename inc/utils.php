@@ -1,6 +1,23 @@
 <?php
 
 /**
+ * Enqueues a list of Vite entries.
+ *
+ * @param list<string> $entries
+ */
+function vite_enqueue( array $entries ): void {
+	try {
+		$vite = new Vite();
+		foreach ( $entries as $entry ) {
+			$vite->enqueue( $entry );
+		}
+	} catch ( \Exception $e ) {
+		ob_clean();
+		wp_die( $e->getMessage(), 'Vite error', 503 );
+	}
+}
+
+/**
  * @see https://github.com/timber/timber/blob/e974e252851af262426319aca4991fb09afbe6b1/src/DateTimeHelper.php#L80
  *
  * Returns the difference between two times in a human readable format.

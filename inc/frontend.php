@@ -3,9 +3,7 @@
 add_action(
 	'wp_enqueue_scripts',
 	function (): void {
-		$vite = new Vite();
-		$vite->inject( 'style.css' );
-		$vite->inject( 'resources/app.ts' );
+		vite_enqueue( array( 'style.css', 'resources/app.ts' ) );
 		wp_enqueue_style( 'fa-icon', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css' );
 		wp_enqueue_script( 'highlight', 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js' );
 	}
