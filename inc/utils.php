@@ -1,9 +1,26 @@
 <?php
+/**
+ * Utility functions for the theme
+ *
+ * Contains helper functions for Vite asset management, time formatting,
+ * and custom pagination.
+ *
+ * @package    Ging_Blog
+ * @subpackage Ging_Blog/Inc
+ * @since      1.0.0
+ */
 
 /**
  * Enqueues a list of Vite entries.
  *
- * @param list<string> $entries
+ * Initializes the Vite integration and enqueues the specified entry points.
+ * Handles errors gracefully by displaying a WordPress error page.
+ *
+ * @since 1.0.0
+ *
+ * @param list<string> $entries Array of entry point paths to enqueue.
+ *
+ * @return void
  */
 function vite_enqueue( array $entries ): void {
 	try {
@@ -13,16 +30,18 @@ function vite_enqueue( array $entries ): void {
 		}
 	} catch ( \Exception $e ) {
 		ob_clean();
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Exception message is from internal code.
 		wp_die( $e->getMessage(), 'Vite error', 503 );
 	}
 }
 
 /**
- * @see https://github.com/timber/timber/blob/e974e252851af262426319aca4991fb09afbe6b1/src/DateTimeHelper.php#L80
- *
  * Returns the difference between two times in a human readable format.
  *
- * Differentiates between past and future dates.
+ * Differentiates between past and future dates. Based on Timber's DateTimeHelper.
+ *
+ * @since 1.0.0
+ * @see https://github.com/timber/timber/blob/e974e252851af262426319aca4991fb09afbe6b1/src/DateTimeHelper.php#L80
  *
  * @param int|string $from          Base date as a timestamp or a date string.
  * @param int|string $to            Optional. Date to calculate difference to as a timestamp or
@@ -32,15 +51,17 @@ function vite_enqueue( array $entries ): void {
  * @param string     $format_future Optional. String to use for future dates. To be used with
  *                                  `sprintf()`. Default `%s from now`.
  *
- * @return string
+ * @return string Human-readable time difference.
  */
 function time_ago( $from, $to = null, $format_past = null, $format_future = null ) {
 	if ( null === $format_past ) {
-		$format_past = \__( '%s ago' );
+		/* translators: %s: Human-readable time difference */
+		$format_past = \__( '%s ago', 'blog-theme' );
 	}
 
 	if ( null === $format_future ) {
-		$format_future = \__( '%s from now' );
+		/* translators: %s: Human-readable time difference */
+		$format_future = \__( '%s from now', 'blog-theme' );
 	}
 
 	$to ??= \time();
@@ -59,10 +80,38 @@ function time_ago( $from, $to = null, $format_past = null, $format_future = null
 }
 
 /**
- * @global WP_Query $wp_query
- * @global WP_Rewrite $wp_rewrite
- * @param mixed $args
- * @return string|string[]|void
+ * Custom pagination links with Stack Overflow design.
+ *
+ * Generates pagination links using custom HTML markup compatible with
+ * Stack Overflow's design system.
+ *
+ * @since 1.0.0
+ *
+ * @global WP_Query   $wp_query   WordPress query object.
+ * @global WP_Rewrite $wp_rewrite WordPress rewrite object.
+ *
+ * @param string|array $args {
+ *     Optional. Array or string of arguments for generating paginated links.
+ *
+ *     @type string $base               Base URL for pagination links. Default is the current page URL.
+ *     @type string $format             Format for page number. Default '?paged=%#%' or '/page/%#%'.
+ *     @type int    $total              Total number of pages. Default is max_num_pages from query.
+ *     @type int    $current            Current page number. Default is current paged value.
+ *     @type string $aria_current       Value for aria-current attribute. Default 'page'.
+ *     @type bool   $show_all           Whether to show all pages. Default false.
+ *     @type bool   $prev_next          Whether to include previous/next links. Default true.
+ *     @type string $prev_text          Text for previous page link. Default '&laquo; Previous'.
+ *     @type string $next_text          Text for next page link. Default 'Next &raquo;'.
+ *     @type int    $end_size           Number of pages to show at the ends. Default 1.
+ *     @type int    $mid_size           Number of pages to show around current page. Default 2.
+ *     @type string $type               Output type. 'plain', 'array', or 'list'. Default 'plain'.
+ *     @type array  $add_args           Array of query args to add. Default empty array.
+ *     @type string $add_fragment       String to append to each link. Default empty.
+ *     @type string $before_page_number Text before page number. Default empty.
+ *     @type string $after_page_number  Text after page number. Default empty.
+ * }
+ *
+ * @return string|array|void String of page links or array of page links. Void if total pages is less than 2.
  */
 function custom_paginate_links( $args = '' ) {
 	global $wp_query, $wp_rewrite;

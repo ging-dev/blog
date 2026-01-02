@@ -1,4 +1,15 @@
 <?php
+/**
+ * Main layout template
+ *
+ * Provides the base HTML structure for all pages including header,
+ * navigation, breadcrumbs, and footer.
+ *
+ * @package    Ging_Blog
+ * @subpackage Ging_Blog/Templates
+ * @since      1.0.0
+ */
+
 use League\Plates\Template\Template;
 
 assert( $this instanceof Template );

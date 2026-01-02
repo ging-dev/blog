@@ -1,5 +1,24 @@
 <?php
+/**
+ * Frontend functionality
+ *
+ * Handles frontend asset enqueuing and theme setup.
+ *
+ * @package    Ging_Blog
+ * @subpackage Ging_Blog/Inc
+ * @since      1.0.0
+ */
 
+/**
+ * Enqueue frontend scripts and styles.
+ *
+ * Loads theme assets including Vite-managed files and external CDN resources
+ * for Font Awesome icons and Highlight.js syntax highlighting.
+ *
+ * @since 1.0.0
+ *
+ * @return void
+ */
 add_action(
 	'wp_enqueue_scripts',
 	function (): void {
@@ -10,7 +29,14 @@ add_action(
 );
 
 /**
- * Fires after the theme is loaded.
+ * Theme setup.
+ *
+ * Configures theme features and support after the theme is loaded.
+ * Enables automatic title tag generation.
+ *
+ * @since 1.0.0
+ *
+ * @return void
  */
 add_action(
 	'after_setup_theme',
